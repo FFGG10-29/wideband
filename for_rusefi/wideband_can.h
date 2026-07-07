@@ -54,6 +54,7 @@ enum class Status : uint8_t
     SensorDidntHeat = 3,
     SensorOverheat = 4,
     SensorUnderheat = 5,
+    CanSilent = 6,
 };
 
 static inline bool isStatusError(Status s)
@@ -85,6 +86,15 @@ struct DiagData
     uint8_t pad;
 };
 
+struct PongData
+{
+    uint8_t Version;
+    uint8_t day;
+    uint8_t month;
+    uint8_t year;
+    uint8_t pad[4];
+};
+
 static inline const char* describeStatus(Status status)
 {
     switch (status)
@@ -95,6 +105,7 @@ static inline const char* describeStatus(Status status)
     case Status::SensorDidntHeat: return "Sensor failed to heat";
     case Status::SensorOverheat: return "Sensor overheat";
     case Status::SensorUnderheat: return "Sensor underheat";
+    case Status::CanSilent: return "Not connected";
     }
 
     return "Unknown";
